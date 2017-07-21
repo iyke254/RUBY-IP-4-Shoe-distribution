@@ -1,0 +1,28 @@
+<div class="content">
+  <h1>Brands</h1>
+  <hr>
+
+  <% if @brands.any? %>
+    <ul>
+      <% @brands.each { |brand| %>
+        <li><a href='/brands/<%= brand.id %>'><%= brand.name %></a></li>
+      <% } %>
+    </ul>
+  <% else %>
+    <p>There are no brands yet. Add one below.</p>
+  <% end %>
+  <br>
+
+  <h3>Add a new brand:</h3>
+  <form action="/brands/new" method="post">
+    <label for="name">Brand name</label>
+    <input id="name" name="name" type="text">
+    <button type="submit">Add Brand</button>
+  </form>
+</div>
+
+<footer>
+  <a href='/stores'>View Stores</a>
+  <br>
+  <a href='/'>Return Home</a>
+</footer>
