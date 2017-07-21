@@ -1,0 +1,58 @@
+<div class="content">
+  <h1>Store: <%= @store.name %></h1>
+  <hr>
+
+  <h3>Brands carried at <%= @store.name %>:</h3>
+  <% if @store.brands.any? %>
+    <ul>
+      <% @store.brands.each { |brand| %>
+        <li><a href='/brands/<%= brand.id %>'><%= brand.name %></a></li>
+      <% } %>
+    </ul>
+  <% else %>
+    <p>This store has no brands yet.</p>
+  <% end %>
+  <br>
+
+  <h3>Add a brand below or select from the existing brands.</h3>
+  <% if @brands.any? %>
+    <form action="/stores/<%= @store.id %>/brand" method="post">
+      <input id="store_id" name="store_id" type="hidden" value="<%= @store.id() %>">
+      <label for="brand_id">Select a Brand</label>
+        <select id='brand_id' name='brand_id' type='text'>
+          <% @brands.each { |brand| %>
+            <option value="<%= brand.id %>"> <%= brand.name %></option>
+          <% } %>
+        </select>
+      <button type="submit">Add Brand</button>
+    </form>
+  <% end %>
+
+  <form action="/stores/<%= @store.id %>/brand/new" method="post">
+    <label for="name">Brand Name</label>
+    <input id="name" name="name" type="text">
+    <button type="submit">Add New Brand</button>
+  </form>
+  <br>
+
+  <h3>Update <%= @store.name %> </h3>
+  <form action="/stores/<%= @store.id %>" method="post">
+    <input name="_method" type="hidden" value="patch">
+    <label for="new_name">New Name:</label>
+    <input id="new_name" name="new_name" type="text">
+    <button type="submit">Update Store</button>
+  </form>
+  <br>
+
+  <h3>Delete <%= @store.name %></h3>
+  <form action="/stores/<%= @store.id %>" method="post">
+    <input name="_method" type="hidden" value="delete">
+    <button type="submit">Delete Store</button>
+  </form>
+</div>
+
+<footer>
+  <a href='/stores'>Return to Stores</a>
+  <br>
+  <a href='/'>Return Home</a>
+</footer>
