@@ -1,0 +1,42 @@
+<div class="content">
+  <h1>Brand: <%= @brand.name %></h1>
+  <hr>
+
+  <h3>Stores that carry <%= @brand.name %> brand:</h3>
+  <% if @brand.stores.any? %>
+    <ul>
+      <% @brand.stores.each { |store| %>
+        <li><a href='/stores/<%= store.id %>'><%= store.name %></a></li>
+      <% } %>
+    </ul>
+  <% else %>
+    <p>This brand is not carried at any stores.</p>
+  <% end %>
+
+  <h3>Add a store below or select from the existing stores.</h3>
+  <% if @stores.any? %>
+    <form action="/brands/<%= @brand.id %>/store" method="post">
+      <input id="brand_id" name="brand_id" type="hidden" value="<%= @brand.id() %>">
+      <label for="store_id">Select a Brand</label>
+        <select id='store_id' name='store_id' type='text'>
+          <% @stores.each { |store| %>
+            <option value="<%= store.id %>"> <%= store.name %></option>
+          <% } %>
+        </select>
+      <button type="submit">Add Store</button>
+    </form>
+  <% end %>
+  <br>
+
+  <form action="/brands/<%= @brand.id %>/store/new" method="post">
+    <label for="name">Store Name</label>
+    <input id="name" name="name" type="text">
+    <button type="submit">Add New Store</button>
+  </form>
+</div>
+
+<footer>
+  <a href='/brands'>Return to Brands</a>
+  <br>
+  <a href='/'>Return Home</a>
+</footer>
